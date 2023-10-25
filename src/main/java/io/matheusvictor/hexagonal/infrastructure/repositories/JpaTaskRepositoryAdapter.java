@@ -43,8 +43,13 @@ public class JpaTaskRepositoryAdapter implements TaskRepositoryPort {
         if (!existsById(id)) {
             return Optional.empty();
         }
-
-        TaskEntity taskEntity = TaskEntity.fromDomainModel(task);
+        Optional<Task> taskFound = this.findById(id).map(taskFounded -> {
+            taskFounded.setTitle(task.getTitle());
+            taskFounded.setDescription(task.getDescription());
+            taskFounded.setCompleted(task.isCompleted());
+            return taskFounded;
+        });
+        TaskEntity taskEntity = TaskEntity.fromDomainModel(taskFound.get());
         TaskEntity updatedTaskEntity = jpaTaskRepository.save(taskEntity);
         return Optional.of(updatedTaskEntity.toDomainModel());
 
