@@ -3,10 +3,12 @@ package io.matheusvictor.hexagonal.infrastructure.repositories;
 import io.matheusvictor.hexagonal.domain.model.Task;
 import io.matheusvictor.hexagonal.domain.ports.out.TaskRepositoryPort;
 import io.matheusvictor.hexagonal.infrastructure.entities.TaskEntity;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
 
+@Component
 public class JpaTaskRepositoryAdapter implements TaskRepositoryPort {
 
     private final JpaTaskRepository jpaTaskRepository;
